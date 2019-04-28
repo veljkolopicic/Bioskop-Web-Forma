@@ -35,6 +35,7 @@ namespace WebBioskop.Account
 
         protected void Page_Load()
         {
+            TextBox1.Text = Context.User.Identity.Name;
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
             HasPhoneNumber = String.IsNullOrEmpty(manager.GetPhoneNumber(User.Identity.GetUserId()));
