@@ -14,7 +14,7 @@
                 <asp:QueryStringParameter Name="Name" QueryStringField="name" Type="String" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Horizontal" RowStyle-Wrap="true" itemstyle-wrap="True" Width="590px"  >
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Horizontal" RowStyle-Wrap="true" itemstyle-wrap="True" Width="590px" Font-Bold="True"  >
             <Columns>
                 <asp:BoundField DataField="Description" SortExpression="Description" HtmlEncode="False">
                 <ItemStyle BackColor="#E9E9E9" Font-Bold="True" Font-Names="Candara" />
@@ -38,14 +38,15 @@
 
     </p>
     <p>
-        &nbsp;</p>
+        <asp:Label ID="Label3" runat="server" Font-Bold="True" Font-Size="Large" Text="Izaberite broj ulaznica za vreme projekcije"></asp:Label>
+    </p>
     <p>
         <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT Dogadjaji.Dan, Dogadjaji.Datum, Dogadjaji.vreme, Dogadjaji.Karte, Dogadjaji.Cena FROM Dogadjaji INNER JOIN Filmovi ON Dogadjaji.FilmoviId = Filmovi.ID WHERE (Filmovi.Name = @Name)">
             <SelectParameters>
                 <asp:ControlParameter ControlID="Label2" Name="Name" PropertyName="Text" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" BackColor="#BCB598" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" Width="590px">
+        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource3" BackColor="#BCB598" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" Width="590px" OnSelectedIndexChanged="GridView3_SelectedIndexChanged1">
             <AlternatingRowStyle BackColor="#dae4e5" />
             <Columns>
                 <asp:BoundField DataField="Dan" HeaderText="Dan" SortExpression="Dan" />
@@ -53,11 +54,11 @@
                 <asp:BoundField DataField="vreme" DataFormatString="{0:hh\:mm}" HeaderText="Vreme" SortExpression="vreme" >
                 <ItemStyle Font-Bold="True" />
                 </asp:BoundField>
-                <asp:BoundField DataField="Karte" HeaderText="Broj mesta" SortExpression="Karte" />
+                <asp:BoundField DataField="Karte" HeaderText="Broj Preostalih mesta" SortExpression="Karte" />
                 <asp:BoundField DataField="Cena" HeaderText="Cena" SortExpression="Cena" />
                 <asp:TemplateField HeaderText="Broj Ulaznica">
                     <ItemTemplate>
-                        <asp:DropDownList ID="DropDownList1" runat="server" Height="20px" Width="90px">
+                        <asp:DropDownList ID="DropDownList1" runat="server" Height="18px" Width="57px">
                             <asp:ListItem>1</asp:ListItem>
                             <asp:ListItem>2</asp:ListItem>
                             <asp:ListItem>3</asp:ListItem>
@@ -66,8 +67,11 @@
                             <asp:ListItem>6</asp:ListItem>
                         </asp:DropDownList>
                     </ItemTemplate>
+                    <ItemStyle HorizontalAlign="Center" />
                 </asp:TemplateField>
-                <asp:CommandField ButtonType="Button" SelectText="Rezerviši" ShowSelectButton="True" />
+                <asp:CommandField ButtonType="Button" SelectText="Rezerviši" ShowSelectButton="True" >
+                <ItemStyle HorizontalAlign="Center" />
+                </asp:CommandField>
             </Columns>
             <FooterStyle BackColor="#CCCCCC" />
             <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
@@ -82,4 +86,36 @@
     </p>
     <p>
         &nbsp;</p>
+    <p>
+        <asp:Label ID="Label4" runat="server" Font-Bold="True" Font-Size="Large"></asp:Label>
+        <asp:Label ID="Label5" runat="server" Font-Bold="True" Font-Size="Large" Font-Strikeout="False" Font-Underline="True"></asp:Label>
+    </p>
+    <p>
+        &nbsp;</p>
+    <p>
+        <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>"
+            SelectCommand="SELECT * FROM [Dogadjaji] WHERE (([vreme] = @vreme) AND ([Dan] = @Dan))"
+            
+            DeleteCommand="DELETE FROM [Dogadjaji] WHERE [ID] = @ID"
+            InsertCommand="INSERT INTO [Dogadjaji] ([FilmoviId], [Dan], [Datum], [vreme], [Karte], [Cena]) VALUES (@FilmoviId, @Dan, @Datum, @vreme, @Karte, @Cena)" >
+            <DeleteParameters>
+                <asp:Parameter Name="ID" Type="Int32" />
+            </DeleteParameters>
+            <InsertParameters>
+                <asp:Parameter Name="FilmoviId" Type="Int32" />
+                <asp:Parameter Name="Dan" Type="String" />
+                <asp:Parameter DbType="Date" Name="Datum" />
+                <asp:Parameter DbType="Time" Name="vreme" />
+                <asp:Parameter Name="Karte" Type="Int32" />
+                <asp:Parameter Name="Cena" Type="Decimal" />
+            </InsertParameters>
+            <SelectParameters>
+                <asp:QueryStringParameter DbType="Time" Name="vreme" QueryStringField="vreme" />
+                <asp:QueryStringParameter Name="Dan" QueryStringField="dan" Type="String" />
+            </SelectParameters>
+            <UpdateParameters>
+                <asp:ControlParameter ControlID="Label2" Name="Name" PropertyName="Text" />
+            </UpdateParameters>
+        </asp:SqlDataSource>
+    </p>
 </asp:Content>
