@@ -18,14 +18,11 @@ namespace WebBioskop
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            
-
             GridViewRow row = GridView1.SelectedRow;
             string name = row.Cells[1].Text;
             if (Context.User.Identity.Name != string.Empty)
             {
-                Response.Redirect("~/Rezervacije.aspx?name");
+                Response.Redirect("~/Rezervacije.aspx?name="+name);
             }
             else
             {

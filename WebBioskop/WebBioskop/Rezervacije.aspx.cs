@@ -12,7 +12,12 @@ namespace WebBioskop
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            TextBox1.Text = Request.QueryString["name"];
+            Label2.Text = Request.QueryString["name"];
+        }
+
+        protected void SqlDataSource2_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
+        {
+
         }
     }
 }

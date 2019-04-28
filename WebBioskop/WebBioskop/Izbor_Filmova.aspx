@@ -17,8 +17,8 @@
                 </asp:BoundField>
                 <asp:ImageField DataImageUrlField="ImageRepertoar" HeaderText="Poster">
                 </asp:ImageField>
-                <asp:BoundField DataField="LongDescription" HeaderText="Opis" SortExpression="LongDescription" >
-                <ItemStyle BackColor="#FFD5D5" BorderColor="Red" BorderStyle="Groove" Font-Names="Berlin Sans FB" />
+                <asp:BoundField DataField="LongDescription" HeaderText="Opis" SortExpression="LongDescription"  >
+                <ItemStyle BackColor="#FFD5D5" BorderColor="#FFD5D5" BorderStyle="Outset" Font-Names="Berlin Sans FB" />
                 </asp:BoundField>
                 <asp:TemplateField HeaderText="Trailer" SortExpression="Trailer">
                     <EditItemTemplate>
