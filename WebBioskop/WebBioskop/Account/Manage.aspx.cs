@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -36,6 +37,7 @@ namespace WebBioskop.Account
         protected void Page_Load()
         {
             TextBox1.Text = Context.User.Identity.Name;
+            Label1.Text = "";
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
             HasPhoneNumber = String.IsNullOrEmpty(manager.GetPhoneNumber(User.Identity.GetUserId()));
@@ -124,6 +126,27 @@ namespace WebBioskop.Account
             manager.SetTwoFactorEnabled(User.Identity.GetUserId(), true);
 
             Response.Redirect("/Account/Manage");
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridView1.DataBind();
+            GridViewRow row = GridView1.SelectedRow;
+            string id = row.Cells[0].Text;//prva kolona je rezervacje.id
+            string dogadjajiid = row.Cells[1].Text;//druga je dogadjajid
+            int karte = Convert.ToInt32(row.Cells[2].Text);//treca je preostali broj ulaznica
+            int brojulaznica = Convert.ToInt32(row.Cells[9].Text);//deseta je karte koje dodajemo
+            karte += brojulaznica;
+            SqlDataSource2.UpdateParameters.Add("dogadjajiid", dogadjajiid);
+            SqlDataSource2.UpdateParameters.Add("karte", karte.ToString());
+            SqlDataSource2.UpdateCommand = "UPDATE Dogadjaji SET Karte = @karte" +
+                " WHERE (Dogadjaji.ID = @dogadjajiid)";//update ako ponistavamo rezervaciju
+            SqlDataSource2.Update();
+            SqlDataSource2.DeleteParameters.Add("id", id);
+            SqlDataSource2.DeleteCommand = "DELETE FROM Rezervacije WHERE (ID = @id)";
+            SqlDataSource2.Delete();//brisanje iz tabele rezervacije ako ponistavamo rezervaciju
+            GridView1.DataBind();
+            Label1.Text = "Uspešno ste ponistili rezervaciju.";
         }
     }
 }

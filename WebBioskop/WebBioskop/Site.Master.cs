@@ -69,7 +69,10 @@ namespace WebBioskop
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Context.User.Identity.IsAuthenticated && Context.User.Identity.Name.Equals("one.logo@yahoo.com"))
+            {
+                LinkA.Visible = true;
+            }
         }
 
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)

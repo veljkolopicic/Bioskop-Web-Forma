@@ -3,6 +3,12 @@
 <%@ Register Src="~/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
+        <style type="text/css">
+  .hidencol
+  {
+    display: none;
+  }
+</style>
     <h2><%: Title %>.</h2>
 
     <div>
@@ -14,16 +20,28 @@
        <div>
 
            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" 
-               SelectCommand="SELECT Filmovi.Name, Filmovi.ImageRepertoar, Dogadjaji.Dan, Dogadjaji.Datum, Dogadjaji.vreme, Dogadjaji.Cena, Rezervacije.BrojUlaznica FROM Filmovi INNER JOIN Dogadjaji ON Filmovi.ID = Dogadjaji.FilmoviId INNER JOIN Rezervacije ON Dogadjaji.ID = Rezervacije.DogadjajiId INNER JOIN AspNetUsers ON Rezervacije.UserId = AspNetUsers.Id 
+               SelectCommand="SELECT Filmovi.Name, Filmovi.ImageRepertoar, Dogadjaji.Dan, Dogadjaji.Datum, Dogadjaji.vreme, Dogadjaji.Karte, Dogadjaji.Cena, Rezervacije.ID, Rezervacije.DogadjajiId, Rezervacije.BrojUlaznica FROM Filmovi INNER JOIN Dogadjaji ON Filmovi.ID = Dogadjaji.FilmoviId INNER JOIN Rezervacije ON Dogadjaji.ID = Rezervacije.DogadjajiId INNER JOIN AspNetUsers ON Rezervacije.UserId = AspNetUsers.Id 
 WHERE ([Email] = @Email)
 ">
                <SelectParameters>
                    <asp:ControlParameter ControlID="TextBox1" Name="Email" PropertyName="Text" />
                </SelectParameters>
            </asp:SqlDataSource>
-           <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#BCB598" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Vertical" Width="800px">
+           <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#BCB598" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Vertical" Width="800px" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
                <AlternatingRowStyle BackColor="#cc6868" />
                <Columns>
+                   <asp:BoundField DataField="ID" >
+                   <HeaderStyle CssClass="hidencol" />
+                   <ItemStyle CssClass="hidencol" />
+                   </asp:BoundField>
+                   <asp:BoundField DataField="DogadjajiId" >
+                   <HeaderStyle CssClass="hidencol" />
+                   <ItemStyle CssClass="hidencol" />
+                   </asp:BoundField>
+                   <asp:BoundField DataField="Karte" >
+                   <HeaderStyle CssClass="hidencol" />
+                   <ItemStyle CssClass="hidencol" />
+                   </asp:BoundField>
                    <asp:BoundField DataField="Name" HeaderText="Rezevisani film" SortExpression="Name" >
                    <HeaderStyle Font-Names="Tahoma" ForeColor="Red" HorizontalAlign="Right" />
                    <ItemStyle HorizontalAlign="Center" />
@@ -52,19 +70,22 @@ WHERE ([Email] = @Email)
                    <HeaderStyle Font-Names="Tahoma" ForeColor="Red" HorizontalAlign="Center" />
                    <ItemStyle HorizontalAlign="Center" />
                    </asp:BoundField>
-                   <asp:CommandField ButtonType="Button" ShowSelectButton="True">
+                   <asp:CommandField ButtonType="Image" ShowSelectButton="True" SelectImageUrl="~/Images/Arrowpon7.png" SelectText="Poništi rezervaciju">
                    <ItemStyle HorizontalAlign="Center" />
                    </asp:CommandField>
                </Columns>
                <FooterStyle BackColor="#CCCCCC" />
                <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
                <PagerStyle BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
-               <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+               
                <SortedAscendingCellStyle BackColor="#F1F1F1" />
                <SortedAscendingHeaderStyle BackColor="#808080" />
                <SortedDescendingCellStyle BackColor="#CAC9C9" />
                <SortedDescendingHeaderStyle BackColor="#383838" />
            </asp:GridView>
+
+           <br />
+           <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="X-Large"></asp:Label>
 
        </div> 
     
@@ -73,6 +94,23 @@ WHERE ([Email] = @Email)
             <div class="form-horizontal">
                 <h4>
                     <asp:TextBox ID="TextBox1" runat="server" ReadOnly="True" Visible="False" Width="16px"></asp:TextBox>
+                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" 
+                         
+                        InsertCommand="INSERT INTO [Rezervacije] ([DogadjajiId], [UserId], [BrojUlaznica]) VALUES (@DogadjajiId, @UserId, @BrojUlaznica)" 
+                        SelectCommand="SELECT * FROM [Rezervacije]" 
+                        >
+                        <DeleteParameters>
+                         
+                        </DeleteParameters>
+                        <InsertParameters>
+                            <asp:Parameter Name="DogadjajiId" Type="Int32" />
+                            <asp:Parameter Name="UserId" Type="String" />
+                            <asp:Parameter Name="BrojUlaznica" Type="Int32" />
+                        </InsertParameters>
+                        <UpdateParameters>
+          
+                        </UpdateParameters>
+                    </asp:SqlDataSource>
                 </h4>
                 <h4>Promenite podešavanja vašeg naloga</h4>
                 <hr />

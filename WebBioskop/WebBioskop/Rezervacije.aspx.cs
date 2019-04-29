@@ -20,6 +20,10 @@ namespace WebBioskop
             {
                 TextBox1.Text = drvSql["Id"].ToString();
             }
+            if (GridView3.Rows.Count == 0)
+            {
+                Label3.Text = "Nema projekcija za izabrani film.";
+            }
         }
 
         protected void SqlDataSource2_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
@@ -29,6 +33,9 @@ namespace WebBioskop
         protected void GridView3_SelectedIndexChanged1(object sender, EventArgs e)
         {
             GridViewRow row = GridView3.SelectedRow;
+            DropDownList dtkarte = (DropDownList)row.FindControl("DropDownList1");
+            int karte = Convert.ToInt32(dtkarte.SelectedItem.Value);//izbrano u dropdown-u postaje karte koje oduzimamo
+            GridView3.DataBind();
             string id = row.Cells[0].Text;
             string dan = row.Cells[1].Text;
             string datum = row.Cells[2].Text;
@@ -40,29 +47,26 @@ namespace WebBioskop
             int preostalo = Convert.ToInt32(mesta);
             string bru = "";//ispis ulaznica
             string dogadjajiid="", userid="";bool rezervisao = false;
-            DropDownList dtkarte = (DropDownList)row.FindControl("DropDownList1");
-            int karte = Convert.ToInt32(dtkarte.SelectedItem.Value);
             
             DataView rezSql = (DataView)SqlDataSource6.Select(DataSourceSelectArguments.Empty);
-            foreach (DataRowView rezvSql in rezSql)
+            foreach (DataRowView rezvSql in rezSql)//uzima svaki red u tabeli rezervacije
             {
                 dogadjajiid = rezvSql["DogadjajiId"].ToString();
                 userid = rezvSql["UserId"].ToString();
-                if (id==dogadjajiid && TextBox1.Text==userid)
+                if (id==dogadjajiid && TextBox1.Text==userid)//poredi dali je korisnik vec rezervisao film
                 {
                     rezervisao = true;
                 }
             }
-            Label6.Text = dogadjajiid +" "+ userid +" " +rezervisao.ToString();
-            if (rezervisao == true)
+            if (rezervisao == true)// ako jeste vec rezervisao
             {
                 Label4.ForeColor = System.Drawing.Color.Red;
-                Label4.Text = "Već ste rezervisali za dati termin.";
+                Label4.Text = "Već ste rezervisali za dati termin.Pogledajte u vašem nalogu koje ste filmove rezervisali.";
                 Label5.Text = "";
             }
             else
             {
-                if (preostalo == 0)
+                if (preostalo == 0)// ako nema vise ulaznica
                 {
                     Label4.ForeColor = System.Drawing.Color.Red;
                     Label4.Text = "Nema preostalih ulaznica za dati termin.";
@@ -71,7 +75,7 @@ namespace WebBioskop
                 else
                 {
                     preostalo -= karte;
-                    if (preostalo < 0)
+                    if (preostalo < 0)// ako je izabrao vise ulaznica nego sto je preostalo 
                     {
                         Label4.ForeColor = System.Drawing.Color.Red;
                         Label4.Text = "Broj preostalih ulaznica je " + mesta;
@@ -84,8 +88,8 @@ namespace WebBioskop
                         else if (karte > 1 && karte < 5)
                             bru = " ulaznice";
                         else bru = " ulaznica";//da li ste rezervisali 1-ulaznicu 2-ulaznice ...5-ulaznica
-                        SqlDataSource4.UpdateParameters.Add("preostalo", preostalo.ToString());
-                        SqlDataSource4.UpdateParameters.Add("vreme", vreme);
+                        SqlDataSource4.UpdateParameters.Add("preostalo", preostalo.ToString());//dodajemo parametre za SqlDataSource4
+                        SqlDataSource4.UpdateParameters.Add("vreme", vreme);// i dajemo im vrednost istovremeno
                         SqlDataSource4.UpdateParameters.Add("datum", datum);
                         SqlDataSource4.UpdateCommand = "UPDATE Dogadjaji SET Karte = @preostalo FROM Dogadjaji INNER JOIN Filmovi" +
                             " ON Dogadjaji.FilmoviId = Filmovi.ID WHERE (Dogadjaji.vreme = @vreme) AND (Dogadjaji.Datum = @datum) AND (Filmovi.Name = @Name)";

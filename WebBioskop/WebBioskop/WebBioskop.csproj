@@ -171,6 +171,7 @@
     <Content Include="Account\VerifyPhoneNumber.aspx" />
     <Content Include="Images\3setofFilmStrip.jpg" />
     <Content Include="Images\3setofFilmStrip2.jpg" />
+    <Content Include="Images\Arrowpon7.png" />
     <Content Include="Images\HEAD.jpg" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -195,6 +196,7 @@
     <Content Include="Images\Vect4.jpg" />
     <Content Include="Izbor_Filmova.aspx" />
     <Content Include="Rezervacije.aspx" />
+    <Content Include="Events.aspx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -401,6 +403,13 @@
     </Compile>
     <Compile Include="Rezervacije.aspx.designer.cs">
       <DependentUpon>Rezervacije.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Events.aspx.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Events.aspx.designer.cs">
+      <DependentUpon>Events.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

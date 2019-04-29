@@ -65,7 +65,7 @@
                 <ItemStyle Font-Bold="True" />
                 </asp:BoundField>
                 <asp:BoundField DataField="Karte" HeaderText="Broj Preostalih mesta" SortExpression="Karte" />
-                <asp:BoundField DataField="Cena" HeaderText="Cena" SortExpression="Cena" />
+                <asp:BoundField DataField="Cena" HeaderText="Cena ulaznice" SortExpression="Cena" />
                 <asp:TemplateField HeaderText="Broj Ulaznica">
                     <ItemTemplate>
                         <asp:DropDownList ID="DropDownList1" runat="server" Height="18px" Width="57px">
@@ -101,8 +101,7 @@
         <asp:Label ID="Label5" runat="server" Font-Bold="True" Font-Size="Large" Font-Strikeout="False" Font-Underline="True" ForeColor="Black"></asp:Label>
     </p>
     <p>
-        <asp:Label ID="Label6" runat="server" Text="Label"></asp:Label>
-    </p>
+        &nbsp;</p>
     <p>
         <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>"
             SelectCommand="SELECT * FROM [Dogadjaji] WHERE (([vreme] = @vreme) AND ([Dan] = @Dan))"
