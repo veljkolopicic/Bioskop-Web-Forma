@@ -5,31 +5,28 @@
     <div class="jumbotron">
         
 
-
-        <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/Kino.jpg" />
-        
+        <p>
+        <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/Kino.jpg" Width="100%" Height="100%" />
+        </p>
 
 
     </div>
-
+    <br />
     <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
+
+
+            
+               <h3 style="margin-left:80px;text-shadow: 5px 4px 5px rgba(29,21,206,0.81);">Dobrodošli u bioskop "Ton filmovi" projekcije filmova još od 1909 godine - pogledajte naš repertoar</h3>
+            
             <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
+                <a class="btn btn-primary" style="float: right; margin-right:65px" href="/Izbor_Filmova">Repertoar &raquo;</a>
             </p>
         </div>
         <div>
    
             
         </div>
-        <div>
-         
-        </div>
-    </div>
+
+
 
 </asp:Content>

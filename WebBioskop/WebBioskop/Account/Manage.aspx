@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Manage Account" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Manage.aspx.cs" Inherits="WebBioskop.Account.Manage" %>
+﻿<%@ Page Title="Upravljajte nalogom" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Manage.aspx.cs" Inherits="WebBioskop.Account.Manage" %>
 
 <%@ Register Src="~/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>
 
@@ -9,7 +9,7 @@
     display: none;
   }
 </style>
-    <h2><%: Title %>.</h2>
+    <h2><%: Title %></h2>
 
     <div>
         <asp:PlaceHolder runat="server" ID="successMessage" Visible="false" ViewStateMode="Disabled">
@@ -27,7 +27,7 @@ WHERE ([Email] = @Email)
                    <asp:ControlParameter ControlID="TextBox1" Name="Email" PropertyName="Text" />
                </SelectParameters>
            </asp:SqlDataSource>
-           <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#BCB598" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Vertical" Width="800px" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+           <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" BackColor="#BCB598" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSource1" ForeColor="Black" GridLines="Vertical" Width="800px" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDataBound="GridView1_RowDataBound">
                <AlternatingRowStyle BackColor="#cc6868" />
                <Columns>
                    <asp:BoundField DataField="ID" >
@@ -70,9 +70,17 @@ WHERE ([Email] = @Email)
                    <HeaderStyle Font-Names="Tahoma" ForeColor="Red" HorizontalAlign="Center" />
                    <ItemStyle HorizontalAlign="Center" />
                    </asp:BoundField>
-                   <asp:CommandField ButtonType="Image" ShowSelectButton="True" SelectImageUrl="~/Images/Arrowpon7.png" SelectText="Poništi rezervaciju">
-                   <ItemStyle HorizontalAlign="Center" />
-                   </asp:CommandField>
+                   <asp:TemplateField ShowHeader="False">
+                       <EditItemTemplate>
+                           <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="True" CommandName="Update" Text="Update" />
+                           &nbsp;<asp:ImageButton ID="ImageButton2" runat="server" CausesValidation="False" CommandName="Cancel" Text="Cancel" />
+                       </EditItemTemplate>
+                       <ItemTemplate>
+                           <asp:ImageButton ID="ImageButton1" runat="server" CausesValidation="False" CommandName="Edit" ImageUrl="~/Images/Arrowpon16.png" Text="Edit" />
+                           &nbsp;<asp:ImageButton ID="ImageButton2" runat="server" CausesValidation="False" CommandName="Select" ImageUrl="~/Images/Arrowpon7.png" Text="Poništi rezervaciju" />
+                       </ItemTemplate>
+                       <ItemStyle HorizontalAlign="Center" />
+                   </asp:TemplateField>
                </Columns>
                <FooterStyle BackColor="#CCCCCC" />
                <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
@@ -85,7 +93,7 @@ WHERE ([Email] = @Email)
            </asp:GridView>
 
            <br />
-           <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="X-Large"></asp:Label>
+           <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Size="X-Large" ForeColor="Red"></asp:Label>
 
        </div> 
     

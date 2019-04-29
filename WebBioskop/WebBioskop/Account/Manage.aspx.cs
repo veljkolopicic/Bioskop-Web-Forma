@@ -148,5 +148,35 @@ namespace WebBioskop.Account
             GridView1.DataBind();
             Label1.Text = "Uspešno ste ponistili rezervaciju.";
         }
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            //string putanja;
+            DateTime trenutno = DateTime.Now;//trenutno vreme
+            string vreme = e.Row.Cells[6].Text + " " + e.Row.Cells[7].Text + ":00";//datum plus sati
+            try
+            {
+                DateTime projekcija = DateTime.Parse(vreme);//pretvaranje stringa u datetime
+                int result = DateTime.Compare(projekcija, trenutno);//da bi smo ih uporedili
+                if (result < 0)//rezultat je negativan ako je trenutno "mladje" od pocetka projekcije
+                {
+                    e.Row.Enabled = false;//taj red isključujemo
+                    var image=e.Row.FindControl("ImageButton2");
+                    image.Visible = false;//uklanjamo dugme tj sliku poništite rezervaciju
+
+                }
+                else
+                {
+                    var image = e.Row.FindControl("ImageButton1");
+                    image.Visible = false;//uklanjamo dugme tj sliku gledali ste
+                }
+            }
+            catch
+            {
+
+            }
+
+        }
+
     }
 }

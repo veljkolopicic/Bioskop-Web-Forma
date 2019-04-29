@@ -66,9 +66,9 @@
                 </div>
                 <div class="navbar-collapse collapse" >
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Home</a></li>
-                        <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/Contact">Contact</a></li>
+                        <li><a runat="server" href="~/">Početna</a></li>
+                        <li><a runat="server" href="~/About">O nama</a></li>
+                        <li><a runat="server" href="~/Contact">Kontakt</a></li>
                         <li><a runat="server" href="~/Izbor_Filmova">Repertoar</a></li>
                         <li><a ID="LinkA" runat="server" Visible="False" href="~/Events">Pregled tabela</a></li>
                     </ul>

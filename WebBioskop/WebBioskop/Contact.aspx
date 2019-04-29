@@ -1,17 +1,19 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebBioskop.Contact" %>
+﻿<%@ Page Title="Kontakt" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="WebBioskop.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="jumbotron">
     <h2><%: Title %>.</h2>
-    <h3>Your contact page.</h3>
+    <h3>Adresa</h3>
     <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
+        Dositejeva<br />
+        Sopot 11450<br />
+        <abbr title="Phone">Tel:</abbr>
+        063/321-346
     </address>
 
     <address>
-        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+        <strong>Podrška:</strong>   <a href="mailto:one.logo@yahoo.com">one.logo@yahoo.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:dzonif4@gmail.com">dzonif4@gmail.com</a>
     </address>
+        </div>
 </asp:Content>
