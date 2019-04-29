@@ -11,6 +11,7 @@ namespace WebBioskop
 {
     public partial class WebForm2 : System.Web.UI.Page
     {
+        int brojac;
         protected void Page_Load(object sender, EventArgs e)
         {
             Label2.Text = Request.QueryString["name"];
@@ -20,7 +21,8 @@ namespace WebBioskop
             {
                 TextBox1.Text = drvSql["Id"].ToString();
             }
-            if (GridView3.Rows.Count == 0)
+        
+            if (GridView3.Rows.Count == 0 || GridView3.Rows.Count == brojac)
             {
                 Label3.Text = "Nema projekcija za izabrani film.";
             }
@@ -53,7 +55,7 @@ namespace WebBioskop
             {
                 dogadjajiid = rezvSql["DogadjajiId"].ToString();
                 userid = rezvSql["UserId"].ToString();
-                if (id==dogadjajiid && TextBox1.Text==userid)//poredi dali je korisnik vec rezervisao film
+                if (id==dogadjajiid && TextBox1.Text==userid)//poredi da li je korisnik vec rezervisao film
                 {
                     rezervisao = true;
                 }
@@ -111,6 +113,29 @@ namespace WebBioskop
             }
 
 
+            
+        }
+
+        protected void GridView3_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+            DateTime trenutno = DateTime.Now;//trenutno vreme
+            string vreme = e.Row.Cells[2].Text +" "+ e.Row.Cells[3].Text+":00";//datum plus sati
+            try
+            {
+                DateTime projekcija = DateTime.Parse(vreme);//pretvaranje stringa u datetime
+                int result = DateTime.Compare(projekcija, trenutno);//da bi smo ih uporedili
+                if (result < 0)//rezultat je negativan ako je trenutno "mladje" od pocetka projekcije
+                {
+                    e.Row.Visible = false;//taj red isključujemo
+                    brojac++;
+                }
+            }
+            catch
+            {
+
+            }
+            
             
         }
     }

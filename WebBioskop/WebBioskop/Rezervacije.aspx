@@ -52,7 +52,7 @@
                 <asp:ControlParameter ControlID="Label2" Name="Name" PropertyName="Text" />
             </SelectParameters>
         </asp:SqlDataSource>
-        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource3"  BackColor="#BCB598" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" Width="617px" OnSelectedIndexChanged="GridView3_SelectedIndexChanged1">
+        <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource3"  BackColor="#BCB598" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" Width="617px" OnSelectedIndexChanged="GridView3_SelectedIndexChanged1" OnRowDataBound="GridView3_RowDataBound">
             <AlternatingRowStyle BackColor="#dae4e5" />
             <Columns>
                 <asp:BoundField DataField="ID" InsertVisible="False" ReadOnly="True">

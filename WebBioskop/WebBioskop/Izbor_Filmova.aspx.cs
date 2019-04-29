@@ -19,12 +19,12 @@ namespace WebBioskop
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow row = GridView1.SelectedRow;
-            string name = row.Cells[1].Text;
+            string name = row.Cells[1].Text;//uzimamo ime filma
             if (Context.User.Identity.Name != string.Empty)
             {
-                Response.Redirect("~/Rezervacije.aspx?name="+name);
+                Response.Redirect("~/Rezervacije.aspx?name="+name);//prelazimo na rezervacije i prenosimo ime filma
             }
-            else
+            else//ako korisnik nije logovan
             {
                 Response.Redirect("~/Account/Login.aspx");
             }
