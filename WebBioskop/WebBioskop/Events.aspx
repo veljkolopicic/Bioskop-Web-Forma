@@ -357,7 +357,7 @@
 
     
     <br />
-    <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" DeleteCommand="DELETE FROM [Rezervacije] WHERE [ID] = @original_ID AND [DogadjajiId] = @original_DogadjajiId AND (([UserId] = @original_UserId) OR ([UserId] IS NULL AND @original_UserId IS NULL)) AND [BrojUlaznica] = @original_BrojUlaznica" InsertCommand="INSERT INTO [Rezervacije] ([DogadjajiId], [UserId], [BrojUlaznica]) VALUES (@DogadjajiId, @UserId, @BrojUlaznica)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT Rezervacije.ID, Rezervacije.DogadjajiId, Rezervacije.UserId, Rezervacije.BrojUlaznica, AspNetUsers.UserName FROM Rezervacije INNER JOIN AspNetUsers ON Rezervacije.UserId = AspNetUsers.Id" UpdateCommand="UPDATE [Rezervacije] SET [DogadjajiId] = @DogadjajiId, [UserId] = @UserId, [BrojUlaznica] = @BrojUlaznica WHERE [ID] = @original_ID AND [DogadjajiId] = @original_DogadjajiId AND (([UserId] = @original_UserId) OR ([UserId] IS NULL AND @original_UserId IS NULL)) AND [BrojUlaznica] = @original_BrojUlaznica">
+    <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConflictDetection="CompareAllValues" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" DeleteCommand="DELETE FROM [Rezervacije] WHERE [ID] = @original_ID AND [DogadjajiId] = @original_DogadjajiId AND (([UserId] = @original_UserId) OR ([UserId] IS NULL AND @original_UserId IS NULL)) AND [BrojUlaznica] = @original_BrojUlaznica" InsertCommand="INSERT INTO [Rezervacije] ([DogadjajiId], [UserId], [BrojUlaznica]) VALUES (@DogadjajiId, @UserId, @BrojUlaznica)" OldValuesParameterFormatString="original_{0}" SelectCommand="SELECT Rezervacije.ID, Rezervacije.DogadjajiId, Rezervacije.UserId, Rezervacije.BrojUlaznica, AspNetUsers.UserName, Rezervacije.Sedista FROM Rezervacije INNER JOIN AspNetUsers ON Rezervacije.UserId = AspNetUsers.Id" UpdateCommand="UPDATE Rezervacije SET DogadjajiId = @DogadjajiId, UserId = @UserId, BrojUlaznica = @BrojUlaznica, Sedista = @Sedista WHERE (ID = @original_ID) AND (DogadjajiId = @original_DogadjajiId) AND (UserId = @original_UserId) AND (BrojUlaznica = @original_BrojUlaznica) AND (Sedista = @original_Sedista) OR (ID = @original_ID) AND (DogadjajiId = @original_DogadjajiId) AND (UserId IS NULL) AND (BrojUlaznica = @original_BrojUlaznica) AND (@original_UserId IS NULL) AND (Sedista = @original_Sedista)">
         <DeleteParameters>
             <asp:Parameter Name="original_ID" Type="Int32" />
             <asp:Parameter Name="original_DogadjajiId" Type="Int32" />
@@ -382,7 +382,7 @@
     </asp:SqlDataSource>
     <asp:UpdatePanel ID="UpdatePanel3" runat="server"  UpdateMode="Conditional" >
         <ContentTemplate>
-            <asp:GridView ID="GridView4" runat="server" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="ID" DataSourceID="SqlDataSource4" Width="790px">
+            <asp:GridView ID="GridView4" runat="server" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#CC9966" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="ID" DataSourceID="SqlDataSource4" Width="980px" style="margin-right: 3px">
                 <Columns>
                     <asp:TemplateField ShowHeader="False">
                         <EditItemTemplate>
@@ -407,6 +407,9 @@
                     <ItemStyle BackColor="#FFFF99" />
                     </asp:BoundField>
                     <asp:BoundField DataField="UserName" HeaderText="UserName" SortExpression="UserName">
+                    <ItemStyle BackColor="#FFFF99" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="Sedista" HeaderText="Sedista">
                     <ItemStyle BackColor="#FFFF99" />
                     </asp:BoundField>
                 </Columns>

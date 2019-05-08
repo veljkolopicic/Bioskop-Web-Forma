@@ -193,6 +193,11 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Account\Web.config" />
     <Content Include="Images\Kino.jpg" />
+    <Content Include="Images\sala.png" />
+    <Content Include="Images\sala1.png" />
+    <Content Include="Images\Sedista6.jpg" />
+    <Content Include="Images\Sedistem.png" />
+    <Content Include="Images\Sedistem1.png" />
     <Content Include="Images\Vect4.jpg" />
     <Content Include="Images\Zgrada.PNG" />
     <Content Include="Izbor_Filmova.aspx" />

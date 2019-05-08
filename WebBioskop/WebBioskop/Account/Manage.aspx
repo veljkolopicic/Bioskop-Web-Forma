@@ -20,9 +20,7 @@
        <div>
 
            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" 
-               SelectCommand="SELECT Filmovi.Name, Filmovi.ImageRepertoar, Dogadjaji.Dan, Dogadjaji.Datum, Dogadjaji.vreme, Dogadjaji.Karte, Dogadjaji.Cena, Rezervacije.ID, Rezervacije.DogadjajiId, Rezervacije.BrojUlaznica FROM Filmovi INNER JOIN Dogadjaji ON Filmovi.ID = Dogadjaji.FilmoviId INNER JOIN Rezervacije ON Dogadjaji.ID = Rezervacije.DogadjajiId INNER JOIN AspNetUsers ON Rezervacije.UserId = AspNetUsers.Id 
-WHERE ([Email] = @Email)
-">
+               SelectCommand="SELECT Filmovi.Name, Filmovi.ImageRepertoar, Dogadjaji.Dan, Dogadjaji.Datum, Dogadjaji.vreme, Dogadjaji.Karte, Dogadjaji.Cena, Rezervacije.ID, Rezervacije.DogadjajiId, Rezervacije.BrojUlaznica, Rezervacije.Sedista FROM Filmovi INNER JOIN Dogadjaji ON Filmovi.ID = Dogadjaji.FilmoviId INNER JOIN Rezervacije ON Dogadjaji.ID = Rezervacije.DogadjajiId INNER JOIN AspNetUsers ON Rezervacije.UserId = AspNetUsers.Id WHERE (AspNetUsers.Email = @Email)">
                <SelectParameters>
                    <asp:ControlParameter ControlID="TextBox1" Name="Email" PropertyName="Text" />
                </SelectParameters>
@@ -69,6 +67,9 @@ WHERE ([Email] = @Email)
                    <asp:BoundField DataField="BrojUlaznica" HeaderText="BrojUlaznica" SortExpression="BrojUlaznica" >
                    <HeaderStyle Font-Names="Tahoma" ForeColor="Red" HorizontalAlign="Center" />
                    <ItemStyle HorizontalAlign="Center" />
+                   </asp:BoundField>
+                   <asp:BoundField DataField="Sedista" HeaderText="Sedišta">
+                   <HeaderStyle Font-Names="Tahoma" ForeColor="Red" HorizontalAlign="Center" />
                    </asp:BoundField>
                    <asp:TemplateField ShowHeader="False">
                        <EditItemTemplate>
